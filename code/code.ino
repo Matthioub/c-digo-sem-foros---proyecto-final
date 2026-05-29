@@ -123,22 +123,18 @@ volatile unsigned long ms = 0;
 void timer();
 
 void iniciarInterseccion(
-  Interseccion &inter
-);
+  Interseccion &inter);
 
 void actualizarInterseccion(
-  Interseccion &inter
-);
+  Interseccion &inter);
 
 void actualizarSemaforo(
   Semaforo &sem,
-  estadoSemaforo nuevoEstado
-);
+  estadoSemaforo nuevoEstado);
 
 bool temporizadorCumplido(
   Interseccion &inter,
-  unsigned long tiempoObjetivo
-);
+  unsigned long tiempoObjetivo);
 
 // ==================================================
 // INTERSECCIÓN 1
@@ -151,9 +147,9 @@ Interseccion inter1 = {
   // ==========================================
 
   {
-    4,   // rojo
-    5,   // amarillo
-    6,   // verde
+    4,  // rojo
+    5,  // amarillo
+    6,  // verde
 
     12,  // peatón rojo
     13,  // peatón verde
@@ -163,8 +159,7 @@ Interseccion inter1 = {
     10,  // tiempo verde
     2,   // tiempo amarillo
 
-    true
-  },
+    true },
 
   // ==========================================
   // SEMÁFORO 2
@@ -183,8 +178,7 @@ Interseccion inter1 = {
     10,
     2,
 
-    true
-  },
+    true },
 
   // Tiene segundo semáforo
 
@@ -203,7 +197,7 @@ Interseccion inter1 = {
 // ARRAY DE INTERSECCIONES
 // ==================================================
 
-Interseccion* intersecciones[CANTIDAD_INTERSECCIONES] = {
+Interseccion *intersecciones[CANTIDAD_INTERSECCIONES] = {
 
   &inter1
 };
@@ -230,8 +224,7 @@ void setup() {
   for (int i = 0; i < CANTIDAD_INTERSECCIONES; i++) {
 
     iniciarInterseccion(
-      *intersecciones[i]
-    );
+      *intersecciones[i]);
   }
 }
 
@@ -248,8 +241,7 @@ void loop() {
   for (int i = 0; i < CANTIDAD_INTERSECCIONES; i++) {
 
     actualizarInterseccion(
-      *intersecciones[i]
-    );
+      *intersecciones[i]);
   }
 }
 
@@ -267,8 +259,7 @@ void timer() {
 // ==================================================
 
 void iniciarInterseccion(
-  Interseccion &inter
-) {
+  Interseccion &inter) {
 
   // ==============================================
   // SEMÁFORO 1
@@ -285,8 +276,7 @@ void iniciarInterseccion(
 
     actualizarSemaforo(
       inter.sem1,
-      SEM_ROJO
-    );
+      SEM_ROJO);
   }
 
   // ==============================================
@@ -294,9 +284,7 @@ void iniciarInterseccion(
   // ==============================================
 
   if (
-    inter.tieneSemaforo2 &&
-    inter.sem2.habilitado
-  ) {
+    inter.tieneSemaforo2 && inter.sem2.habilitado) {
 
     pinMode(inter.sem2.pinRojo, OUTPUT);
     pinMode(inter.sem2.pinAmarillo, OUTPUT);
@@ -307,8 +295,7 @@ void iniciarInterseccion(
 
     actualizarSemaforo(
       inter.sem2,
-      SEM_ROJO
-    );
+      SEM_ROJO);
   }
 }
 
@@ -317,28 +304,25 @@ void iniciarInterseccion(
 // ==================================================
 
 void actualizarInterseccion(
-  Interseccion &inter
-) {
+  Interseccion &inter) {
 
   switch (inter.estado) {
 
-    // ==============================================
-    // INICIO
-    // ==============================================
+      // ==============================================
+      // INICIO
+      // ==============================================
 
     case CTRL_INICIO:
 
       actualizarSemaforo(
         inter.sem1,
-        SEM_ROJO
-      );
+        SEM_ROJO);
 
       if (inter.tieneSemaforo2) {
 
         actualizarSemaforo(
           inter.sem2,
-          SEM_ROJO
-        );
+          SEM_ROJO);
       }
 
       inter.ultimoCambio = ms;
@@ -348,31 +332,27 @@ void actualizarInterseccion(
 
       break;
 
-    // ==============================================
-    // SEMÁFORO 1
-    // ==============================================
+      // ==============================================
+      // SEMÁFORO 1
+      // ==============================================
 
     case CTRL_S1_ROJO_AMARILLO:
 
       actualizarSemaforo(
         inter.sem1,
-        SEM_ROJO_AMARILLO
-      );
+        SEM_ROJO_AMARILLO);
 
       if (inter.tieneSemaforo2) {
 
         actualizarSemaforo(
           inter.sem2,
-          SEM_ROJO
-        );
+          SEM_ROJO);
       }
 
       if (
         temporizadorCumplido(
           inter,
-          2000
-        )
-      ) {
+          2000)) {
 
         inter.ultimoCambio = ms;
 
@@ -386,23 +366,19 @@ void actualizarInterseccion(
 
       actualizarSemaforo(
         inter.sem1,
-        SEM_VERDE
-      );
+        SEM_VERDE);
 
       if (inter.tieneSemaforo2) {
 
         actualizarSemaforo(
           inter.sem2,
-          SEM_ROJO
-        );
+          SEM_ROJO);
       }
 
       if (
         temporizadorCumplido(
           inter,
-          inter.sem1.tiempoVerde * 1000UL
-        )
-      ) {
+          inter.sem1.tiempoVerde * 1000UL)) {
 
         inter.ultimoCambio = ms;
 
@@ -416,23 +392,19 @@ void actualizarInterseccion(
 
       actualizarSemaforo(
         inter.sem1,
-        SEM_AMARILLO
-      );
+        SEM_AMARILLO);
 
       if (inter.tieneSemaforo2) {
 
         actualizarSemaforo(
           inter.sem2,
-          SEM_ROJO
-        );
+          SEM_ROJO);
       }
 
       if (
         temporizadorCumplido(
           inter,
-          inter.sem1.tiempoAmarillo * 1000UL
-        )
-      ) {
+          inter.sem1.tiempoAmarillo * 1000UL)) {
 
         inter.ultimoCambio = ms;
 
@@ -459,28 +431,24 @@ void actualizarInterseccion(
 
       break;
 
-    // ==============================================
-    // SEMÁFORO 2
-    // ==============================================
+      // ==============================================
+      // SEMÁFORO 2
+      // ==============================================
 
     case CTRL_S2_ROJO_AMARILLO:
 
       actualizarSemaforo(
         inter.sem1,
-        SEM_ROJO
-      );
+        SEM_ROJO);
 
       actualizarSemaforo(
         inter.sem2,
-        SEM_ROJO_AMARILLO
-      );
+        SEM_ROJO_AMARILLO);
 
       if (
         temporizadorCumplido(
           inter,
-          2000
-        )
-      ) {
+          2000)) {
 
         inter.ultimoCambio = ms;
 
@@ -494,20 +462,16 @@ void actualizarInterseccion(
 
       actualizarSemaforo(
         inter.sem1,
-        SEM_ROJO
-      );
+        SEM_ROJO);
 
       actualizarSemaforo(
         inter.sem2,
-        SEM_VERDE
-      );
+        SEM_VERDE);
 
       if (
         temporizadorCumplido(
           inter,
-          inter.sem2.tiempoVerde * 1000UL
-        )
-      ) {
+          inter.sem2.tiempoVerde * 1000UL)) {
 
         inter.ultimoCambio = ms;
 
@@ -521,20 +485,16 @@ void actualizarInterseccion(
 
       actualizarSemaforo(
         inter.sem1,
-        SEM_ROJO
-      );
+        SEM_ROJO);
 
       actualizarSemaforo(
         inter.sem2,
-        SEM_AMARILLO
-      );
+        SEM_AMARILLO);
 
       if (
         temporizadorCumplido(
           inter,
-          inter.sem2.tiempoAmarillo * 1000UL
-        )
-      ) {
+          inter.sem2.tiempoAmarillo * 1000UL)) {
 
         inter.ultimoCambio = ms;
 
@@ -552,8 +512,7 @@ void actualizarInterseccion(
 
 void actualizarSemaforo(
   Semaforo &sem,
-  estadoSemaforo nuevoEstado
-) {
+  estadoSemaforo nuevoEstado) {
 
   // ==============================================
   // SI NO EXISTE
@@ -575,9 +534,9 @@ void actualizarSemaforo(
 
   switch (nuevoEstado) {
 
-    // ==============================================
-    // ROJO
-    // ==============================================
+      // ==============================================
+      // ROJO
+      // ==============================================
 
     case SEM_ROJO:
 
@@ -590,9 +549,9 @@ void actualizarSemaforo(
 
       break;
 
-    // ==============================================
-    // ROJO + AMARILLO
-    // ==============================================
+      // ==============================================
+      // ROJO + AMARILLO
+      // ==============================================
 
     case SEM_ROJO_AMARILLO:
 
@@ -605,9 +564,9 @@ void actualizarSemaforo(
 
       break;
 
-    // ==============================================
-    // VERDE
-    // ==============================================
+      // ==============================================
+      // VERDE
+      // ==============================================
 
     case SEM_VERDE:
 
@@ -620,9 +579,9 @@ void actualizarSemaforo(
 
       break;
 
-    // ==============================================
-    // AMARILLO
-    // ==============================================
+      // ==============================================
+      // AMARILLO
+      // ==============================================
 
     case SEM_AMARILLO:
 
@@ -635,14 +594,15 @@ void actualizarSemaforo(
 
       break;
 
-    // ==============================================
-    // APAGADO
-    // ==============================================
+      // ==============================================
+      // APAGADO
+      // ==============================================
 
     case SEM_APAGADO:
 
       digitalWrite(sem.pinRojo, LOW);
       digitalWrite(sem.pinAmarillo, LOW);
+
       digitalWrite(sem.pinVerde, LOW);
 
       digitalWrite(sem.pinPeatonRojo, LOW);
@@ -651,18 +611,15 @@ void actualizarSemaforo(
       break;
   }
 }
-
 // ==================================================
 // TEMPORIZADOR
 // ==================================================
 
 bool temporizadorCumplido(
   Interseccion &inter,
-  unsigned long tiempoObjetivo
-) {
+  unsigned long tiempoObjetivo) {
 
   return (
     (ms - inter.ultimoCambio)
-    >= tiempoObjetivo
-  );
+    >= tiempoObjetivo);
 }
