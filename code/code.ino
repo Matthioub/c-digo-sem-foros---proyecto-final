@@ -29,7 +29,7 @@ INTERSECCIÓN
 // CONFIGURACIÓN
 // ==================================================
 
-#define CANTIDAD_INTERSECCIONES 1
+#define CANTIDAD_INTERSECCIONES 2
 
 // ==================================================
 // ENUMS
@@ -193,13 +193,55 @@ Interseccion inter1 = {
   0
 };
 
+
+// ==================================================
+// INTERSECCIÓN 2
+// ==================================================
+
+Interseccion inter2 = {
+
+  // Semáforo 1 de la intersección 2
+
+  {
+    22, 23, 24,  // rojo, amarillo, verde
+    25, 26,      // peatón rojo, verde
+
+    SEM_APAGADO,
+
+    10,
+    2,
+
+    true },
+
+  // Semáforo 2 de la intersección 2
+
+  {
+    27, 28, 29,  // rojo, amarillo, verde
+    30, 31,      // peatón rojo, verde
+
+    SEM_APAGADO,
+
+    10,
+    2,
+
+    true },
+
+  true,  // tiene semáforo 2
+
+  CTRL_INICIO,
+
+  0
+};
+
 // ==================================================
 // ARRAY DE INTERSECCIONES
 // ==================================================
 
 Interseccion *intersecciones[CANTIDAD_INTERSECCIONES] = {
 
-  &inter1
+  &inter1,
+  &inter2
+
 };
 
 // ==================================================
