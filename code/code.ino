@@ -147,12 +147,12 @@ Interseccion inter1 = {
   // ==========================================
 
   {
-    4,  // rojo
-    5,  // amarillo
-    6,  // verde
+    A6,  // rojo
+    A5,  // amarillo
+    A4,  // verde
 
-    12,  // peatón rojo
-    13,  // peatón verde
+    A3,  // peatón rojo
+    A2,  // peatón verde
 
     SEM_APAGADO,
 
@@ -166,12 +166,12 @@ Interseccion inter1 = {
   // ==========================================
 
   {
-    9,
-    10,
-    11,
+    A12,
+    A11,
+    A10,
 
-    7,
-    8,
+    A9,
+    A8,
 
     SEM_APAGADO,
 
@@ -203,8 +203,8 @@ Interseccion inter2 = {
   // Semáforo 1 de la intersección 2
 
   {
-    22, 23, 24,  // rojo, amarillo, verde
-    25, 26,      // peatón rojo, verde
+    37, 39, 41,  // rojo, amarillo, verde
+    43, 45,      // peatón rojo, verde
 
     SEM_APAGADO,
 
@@ -216,9 +216,8 @@ Interseccion inter2 = {
   // Semáforo 2 de la intersección 2
 
   {
-    27, 28, 29,  // rojo, amarillo, verde
-    30, 31,      // peatón rojo, verde
-
+    27, 29, 31,  // rojo, amarillo, verde
+    33, 35,      // peatón rojo, verde
     SEM_APAGADO,
 
     10,
