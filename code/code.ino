@@ -147,7 +147,7 @@ bool temporizadorCumplido(
 Interseccion inter1 = {
   {
     A2, A3, A4,  // Semáforo 1: rojo, amarillo, verde
-    A5, A6,      // Peatón rojo, blanco
+    A6, A5,      // Peatón rojo, blanco
     SEM_APAGADO,
     10, 2,       // Segundos de verde y amarillo
     true
