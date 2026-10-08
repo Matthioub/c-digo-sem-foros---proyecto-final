@@ -29,7 +29,7 @@ INTERSECCIÓN
 // CONFIGURACIÓN
 // ==================================================
 
-#define CANTIDAD_INTERSECCIONES 2
+#define CANTIDAD_INTERSECCIONES 3
 
 // ==================================================
 // ENUMS
@@ -75,7 +75,7 @@ struct Semaforo {
   // Peatonal
 
   int pinPeatonRojo;
-  int pinPeatonVerde;
+  int pinPeatonVerde;  // Luz blanca de paso peatonal
 
   // Estado
 
@@ -137,98 +137,72 @@ bool temporizadorCumplido(
   unsigned long tiempoObjetivo);
 
 // ==================================================
-// INTERSECCIÓN 1
+// CONFIGURACIÓN DE LOS SEIS SEMÁFOROS
 // ==================================================
+// Fila de impares: 1, 3, 5. Fila de pares: 2, 4, 6.
+// Cada intersección alterna entre un semáforo de cada fila.
+// Orden de campos: rojo, amarillo, verde, peatón rojo, peatón blanco.
 
+// Intersección 1: semáforos 1 y 2.
 Interseccion inter1 = {
-
-  // ==========================================
-  // SEMÁFORO 1
-  // ==========================================
-
   {
-    A6,  // rojo
-    A5,  // amarillo
-    A4,  // verde
-
-    A3,  // peatón rojo
-    A2,  // peatón verde
-
+    A2, A3, A4,  // Semáforo 1: rojo, amarillo, verde
+    A5, A6,      // Peatón rojo, blanco
     SEM_APAGADO,
-
-    10,  // tiempo verde
-    2,   // tiempo amarillo
-
-    true },
-
-  // ==========================================
-  // SEMÁFORO 2
-  // ==========================================
-
+    10, 2,       // Segundos de verde y amarillo
+    true
+  },
   {
-    A12,
-    A11,
-    A10,
-
-    A9,
-    A8,
-
+    3, 4, 5,     // Semáforo 2: rojo, amarillo, verde
+    7, 6,        // Peatón rojo, blanco
     SEM_APAGADO,
-
-    10,
-    2,
-
-    true },
-
-  // Tiene segundo semáforo
-
+    10, 2,
+    true
+  },
   true,
-
-  // Estado FSM
-
   CTRL_INICIO,
-
-  // Timer
-
   0
 };
 
-
-// ==================================================
-// INTERSECCIÓN 2
-// ==================================================
-
+// Intersección 2: semáforos 3 y 4.
 Interseccion inter2 = {
-
-  // Semáforo 1 de la intersección 2
-
   {
-    37, 39, 41,  // rojo, amarillo, verde
-    43, 45,      // peatón rojo, verde
-
+    18, 17, 16,  // Semáforo 3: rojo, amarillo, verde
+    14, 15,      // Peatón rojo, blanco
     SEM_APAGADO,
-
-    10,
-    2,
-
-    true },
-
-  // Semáforo 2 de la intersección 2
-
+    10, 2,
+    true
+  },
   {
-    27, 29, 31,  // rojo, amarillo, verde
-    33, 35,      // peatón rojo, verde
+    A8, A9, A10, // Semáforo 4: rojo, amarillo, verde
+    A12, A11,    // Peatón rojo, blanco
     SEM_APAGADO,
-
-    10,
-    2,
-
-    true },
-
-  true,  // tiene semáforo 2
-
+    10, 2,
+    true
+  },
+  true,
   CTRL_INICIO,
+  0
+};
 
+// Intersección 3: semáforos 5 y 6.
+Interseccion inter3 = {
+  {
+    35, 33, 31,  // Semáforo 5: rojo, amarillo, verde
+    27, 29,      // Peatón rojo, blanco
+    SEM_APAGADO,
+    10, 2,
+    true
+  },
+  {
+    45, 43, 41,  // Semáforo 6: rojo, amarillo, verde
+    37, 39,      // Peatón rojo, blanco
+    SEM_APAGADO,
+    10, 2,
+    true
+  },
+  true,
+  CTRL_INICIO,
   0
 };
 
@@ -237,10 +211,9 @@ Interseccion inter2 = {
 // ==================================================
 
 Interseccion *intersecciones[CANTIDAD_INTERSECCIONES] = {
-
   &inter1,
-  &inter2
-
+  &inter2,
+  &inter3
 };
 
 // ==================================================
